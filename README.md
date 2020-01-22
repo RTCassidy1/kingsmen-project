@@ -1,3 +1,5 @@
+This project is a solution to the following exercise from Kinsmen-Software
+
 Project:
 
 We would like you to create a web page that displays 10,000 rows of data in a grid.  The data itself, how it is presented, persisted, loaded, and served is all up to you!  Here are some high-level guidelines to keep you progressing:

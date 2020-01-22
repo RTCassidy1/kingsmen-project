@@ -2,16 +2,12 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const app = express();
 const {connectDb,dropMovieCollection} = require("./src/connection");
-const User = require("./src/User.model");
 const Movie = require("./src/Movie.model");
 const cors = require("cors");
 const url = require("url");
 
-
 const PORT = 8080;
 const batchsize = 500;
-
-
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -41,20 +37,6 @@ app.post("/movies", async (req,res) => {
     const movies = await Movie.find(null,null,{skip: offset, limit: batchsize}).sort(sort);
     res.json(movies);
 });
-
-app.get("/users", async (req,res) => {
-    const users = await User.find();
-    console.log("fetching users");
-    res.json(users);
-});
-
-app.get("/user-create", async (req,res) => {
-    const user = new User({username: "testuser"});
-
-    await user.save().then(() => console.log("User created"));
-
-    res.send("User created \n");
-})
 
 app.listen(PORT, function() {
     console.log(`listening on ${PORT}`);
