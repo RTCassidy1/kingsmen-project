@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Movie = require("./Movie.model");
 
 const connection = "mongodb://mongo:27017/mongo-test";
 

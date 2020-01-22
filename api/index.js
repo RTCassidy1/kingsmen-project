@@ -40,7 +40,6 @@ app.post("/movies", async (req,res) => {
 
 app.listen(PORT, function() {
     console.log(`listening on ${PORT}`);
-
     connectDb().then(() => {
         console.log("MongoDb connected");
     })
