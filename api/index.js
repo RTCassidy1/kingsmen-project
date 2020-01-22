@@ -1,35 +1,44 @@
 const express = require("express");
+const bodyParser = require('body-parser');
 const app = express();
 const {connectDb,dropMovieCollection} = require("./src/connection");
 const User = require("./src/User.model");
 const Movie = require("./src/Movie.model");
 const cors = require("cors");
-
+const url = require("url");
 
 
 const PORT = 8080;
+const batchsize = 500;
 
 
 
 app.use(cors());
+app.use(bodyParser.json());
 
-app.get("/load-movies", async (req,res) => {
+app.get("/seed-table", async (req,res) => {
     console.log("loading movies...")
         for(var i = 0; i < 10000; i++){
+            var y = Math.floor((Math.random() * 4));
             const movie = new Movie({
                 title: "title" + i,
-                year: "199" + i%10,
-                runtime: i,
-                genre: "comedy"
+                year: 1900 + Math.floor((Math.random() * 100)),
+                runtime: Math.floor((Math.random() * 210) + 30),
+                genre: (y === 3 ? 'action' : y === 2 ? 'comedy' : y === 1 ? 'drama' : 'romance')
             });
             await movie.save().then(() => console.log("movie " + i +" added"))
         }
     res.send("Reloaded Movies");
 });
 
-app.get("/movies", async (req,res) => {
-    const movies = await Movie.find();
-    console.log("fetching movies");
+app.post("/movies", async (req,res) => {
+    var queryData = req.body;
+    console.log("POST: /movies " + JSON.stringify(queryData));
+    var offset = 0;
+    var sort = (queryData.sort ? queryData.sort : {})
+    if(queryData.page)
+        offset = batchsize * queryData.page
+    const movies = await Movie.find(null,null,{skip: offset, limit: batchsize}).sort(sort);
     res.json(movies);
 });
 

@@ -3,13 +3,13 @@ Project:
 We would like you to create a web page that displays 10,000 rows of data in a grid.  The data itself, how it is presented, persisted, loaded, and served is all up to you!  Here are some high-level guidelines to keep you progressing:
 
 UI Framework
-{React; Angular; Vue} choose 1
+{React}
 Server Platform
-{Node; .Net; Java; Python; Ruby} choose 1
+{Node} 
 Database Platform
-{RDBMS; NoSQL} choose 1
+{NoSQL} - MongoDB
 Infrastructure/Platform
-{Local; AWS; Azure; GCP} choose 1
+{Local} - Dockerized containers (could be deployed to cloud)
 
 Over the course of a one to two-hour meeting, please be prepared to discuss your design, your technology selections, how you handled the data, and your choices for presenting the data.
 
